@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timezone, timedelta
 from threading import Lock
+from scraper import inspect_economynext
 
 from scraper import extract_economy_data
 
@@ -165,3 +166,7 @@ def refresh():
         "status": data["status"],
         "retrieved_at": data.get("retrieved_at")
     }
+
+@app.get("/api/debug-source")
+def debug_source():
+    return inspect_economynext()
